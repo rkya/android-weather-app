@@ -1,4 +1,4 @@
-package com.rkya.weather;
+package com.rkya.weather.home;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -6,17 +6,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.rkya.weather.R;
+import com.rkya.weather.model.openweathermap.SingleDayWeatherForecast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final String TAG = HomeAdapter.class.getSimpleName();
 
     private enum ViewType {
@@ -106,9 +110,7 @@ class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        int val = ViewType.getViewType(position).value;
-        Log.i(TAG, "Value = " + val);
-        return val;
+        return ViewType.getViewType(position).value;
     }
 
     @Override
@@ -118,18 +120,20 @@ class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 generateHourlyView((HourlyViewHolder) holder, "New hourly text from Adapter...");
                 Resources resources = context.getResources();
 
-                try {
-                    InputStream rawResource = resources.openRawResource(R.raw.current_weather_data);
-                    BufferedReader bufferReader = new BufferedReader(new InputStreamReader(rawResource));
+                try (InputStream rawResource = resources.openRawResource(R.raw.current_weather_data);
+                     Scanner sc = new Scanner(rawResource)) {
 
                     StringBuilder stringBuilder = new StringBuilder();
 
-                    String eachStringLine;
-
-                    while ((eachStringLine = bufferReader.readLine()) != null) {
-                        stringBuilder.append(eachStringLine).append("\n");
+                    while (sc.hasNext()) {
+                        stringBuilder.append(sc.nextLine());
                     }
                     Log.d(TAG, stringBuilder.toString());
+
+                    SingleDayWeatherForecast singleDayWeatherForecast = new Gson().
+                            fromJson(stringBuilder.toString(), SingleDayWeatherForecast.class);
+
+                    Log.d(TAG, "SingleDayWeatherForecast: " + singleDayWeatherForecast);
                 } catch (Resources.NotFoundException e) {
                     Log.e(TAG, "Unable to find the config file: " + e.getMessage());
                 } catch (IOException e) {
@@ -182,39 +186,4 @@ class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return ViewType.values().length;
     }
 
-//    TODO: Try to remove this redundant class
-    abstract class HomeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-//        final TextView hourlyView;
-
-        HomeViewHolder(@NonNull View itemView) {
-            super(itemView);
-//            hourlyView = itemView.findViewById(R.id.textViewHourlyForecast);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-
-        }
-    }
-
-    class HourlyViewHolder extends HomeViewHolder {
-        final TextView hourlyView;
-
-        HourlyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            hourlyView = itemView.findViewById(R.id.textViewHourlyForecast);
-//            itemView.setOnClickListener(this);
-        }
-    }
-
-    class DailyViewHolder extends HomeViewHolder {
-        final TextView dailyView;
-
-        DailyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            dailyView = itemView.findViewById(R.id.textViewDailyForecast);
-//            itemView.setOnClickListener(this);
-        }
-    }
 }

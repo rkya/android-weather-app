@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.rkya.weather.databinding.ActivityMainBinding;
+import com.rkya.weather.home.HomeAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
