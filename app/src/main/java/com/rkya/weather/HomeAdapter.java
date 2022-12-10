@@ -1,11 +1,17 @@
 package com.rkya.weather;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -110,6 +116,25 @@ class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         switch (ViewType.getViewType(position)) {
             case HOURLY:
                 generateHourlyView((HourlyViewHolder) holder, "New hourly text from Adapter...");
+                Resources resources = context.getResources();
+
+                try {
+                    InputStream rawResource = resources.openRawResource(R.raw.current_weather_data);
+                    BufferedReader bufferReader = new BufferedReader(new InputStreamReader(rawResource));
+
+                    StringBuilder stringBuilder = new StringBuilder();
+
+                    String eachStringLine;
+
+                    while ((eachStringLine = bufferReader.readLine()) != null) {
+                        stringBuilder.append(eachStringLine).append("\n");
+                    }
+                    Log.d(TAG, stringBuilder.toString());
+                } catch (Resources.NotFoundException e) {
+                    Log.e(TAG, "Unable to find the config file: " + e.getMessage());
+                } catch (IOException e) {
+                    Log.e(TAG, "Failed to open config file.");
+                }
 //                Log.i(TAG, holder.getClass().getName());
 //                generateHourlyView((HourlyViewHolder) holder);
                 break;
