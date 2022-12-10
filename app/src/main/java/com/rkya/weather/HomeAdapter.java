@@ -1,6 +1,7 @@
 package com.rkya.weather;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
+class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private final String TAG = HomeAdapter.class.getSimpleName();
+
     private enum ViewType {
         HOURLY(0), DAILY(1), A(2), B(3), C(4), D(5);
 
@@ -58,68 +61,81 @@ class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
      */
     @NonNull
     @Override
-    public HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        int layoutId;
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         switch (ViewType.getViewType(viewType)) {
             case HOURLY:
-                layoutId = R.layout.content_hourly_forecast;
-                break;
-
+                return getHourlyViewHolder(parent);
             case DAILY:
-                layoutId = R.layout.content_daily_forecast;
-                break;
-
+                return getDailyViewHolder(parent);
             case A:
-                layoutId = R.layout.content_daily_forecast;
-                break;
+                return getHourlyViewHolder(parent);
             case B:
-                layoutId = R.layout.content_daily_forecast;
-                break;
+                return getHourlyViewHolder(parent);
             case C:
-                layoutId = R.layout.content_daily_forecast;
-                break;
+                return getHourlyViewHolder(parent);
             case D:
-                layoutId = R.layout.content_daily_forecast;
-                break;
+                return getHourlyViewHolder(parent);
 
             default:
                 throw new IllegalArgumentException("Invalid view type, value = " + viewType);
         }
+    }
 
-        View view = LayoutInflater.from(context).inflate(layoutId, parent, false);
+    @NonNull
+    private HourlyViewHolder getHourlyViewHolder(@NonNull ViewGroup parent) {
+        View view = LayoutInflater.from(context).inflate(R.layout.content_hourly_forecast, parent, false);
         view.setFocusable(true);
 
-        return new HomeViewHolder(view);
+        return new HourlyViewHolder(view);
+    }
+
+    @NonNull
+    private DailyViewHolder getDailyViewHolder(@NonNull ViewGroup parent) {
+        View view = LayoutInflater.from(context).inflate(R.layout.content_daily_forecast, parent, false);
+        view.setFocusable(true);
+
+        return new DailyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
+    public int getItemViewType(int position) {
+        int val = ViewType.getViewType(position).value;
+        Log.i(TAG, "Value = " + val);
+        return val;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (ViewType.getViewType(position)) {
             case HOURLY:
-                holder.hourlyView.setText("New hourly text from Adapter...");
+                generateHourlyView((HourlyViewHolder) holder, "New hourly text from Adapter...");
+//                Log.i(TAG, holder.getClass().getName());
 //                generateHourlyView((HourlyViewHolder) holder);
                 break;
 
             case DAILY:
-                holder.hourlyView.setText("New daily text from Adapter...");
+                generateDailyView((DailyViewHolder) holder, "New daily text from Adapter...");
+//                DailyViewHolder dailyViewHolder = (DailyViewHolder) holder;
+//                dailyViewHolder.dailyView.setText("New daily text from Adapter...");
 //                generateDailyView((DailyViewHolder) holder);
                 break;
 
             case A:
-                holder.hourlyView.setText("New A from Adapter...");
+
+                generateHourlyView((HourlyViewHolder) holder, "New A from Adapter...");
 //                generateDailyView((DailyViewHolder) holder);
                 break;
             case B:
-                holder.hourlyView.setText("New B from Adapter...");
+                generateHourlyView((HourlyViewHolder) holder, "New B from Adapter...");
 //                generateDailyView((DailyViewHolder) holder);
                 break;
             case C:
-                holder.hourlyView.setText("New C from Adapter...");
+                generateHourlyView((HourlyViewHolder) holder, "New C from Adapter...");
 //                generateDailyView((DailyViewHolder) holder);
                 break;
             case D:
-                holder.hourlyView.setText("New D from Adapter...");
+                generateHourlyView((HourlyViewHolder) holder, "New D from Adapter...");
 //                generateDailyView((DailyViewHolder) holder);
                 break;
 
@@ -128,12 +144,12 @@ class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
         }
     }
 
-    private void generateDailyView(@NonNull DailyViewHolder holder) {
-        holder.dailyView.setText("New daily text from Adapter...");
+    private void generateHourlyView(@NonNull HourlyViewHolder holder, String text) {
+        holder.hourlyView.setText(text);
     }
 
-    private void generateHourlyView(@NonNull HourlyViewHolder holder) {
-        holder.hourlyView.setText("New hourly text from Adapter...");
+    private void generateDailyView(@NonNull DailyViewHolder holder, String text) {
+        holder.dailyView.setText(text);
     }
 
     @Override
@@ -142,12 +158,12 @@ class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
     }
 
 //    TODO: Try to remove this redundant class
-    class HomeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        final TextView hourlyView;
+    abstract class HomeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+//        final TextView hourlyView;
 
         HomeViewHolder(@NonNull View itemView) {
             super(itemView);
-            hourlyView = itemView.findViewById(R.id.textViewHourlyForecast);
+//            hourlyView = itemView.findViewById(R.id.textViewHourlyForecast);
             itemView.setOnClickListener(this);
         }
 
@@ -163,7 +179,7 @@ class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
         HourlyViewHolder(@NonNull View itemView) {
             super(itemView);
             hourlyView = itemView.findViewById(R.id.textViewHourlyForecast);
-            itemView.setOnClickListener(this);
+//            itemView.setOnClickListener(this);
         }
     }
 
@@ -173,7 +189,7 @@ class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
         DailyViewHolder(@NonNull View itemView) {
             super(itemView);
             dailyView = itemView.findViewById(R.id.textViewDailyForecast);
-            itemView.setOnClickListener(this);
+//            itemView.setOnClickListener(this);
         }
     }
 }
