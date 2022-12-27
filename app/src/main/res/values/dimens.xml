@@ -1,3 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="location_text_size">28dp</dimen>
+    <dimen name="temperature_text_size">90dp</dimen>
+    <dimen name="description_text_size">20dp</dimen>
 </resources>

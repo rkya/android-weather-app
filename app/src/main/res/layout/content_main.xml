@@ -3,24 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF990000"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
-<!--    TODO: Check what app:layout_behavior means-->
+    <!--    TODO: Check what app:layout_behavior means-->
+
+    <ProgressBar
+        android:id="@+id/loadingIndicator"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
 
     <VideoView
+        android:id="@+id/backgroundVideo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/backgroundVideo" />
-
-    <include layout="@layout/content_today"
-        android:id="@+id/today"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="match_parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeRecyclerView"
-        android:layout_below="@id/today"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/today" />
+
+    <include
+        android:id="@+id/today"
+        layout="@layout/content_today"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

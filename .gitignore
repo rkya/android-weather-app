@@ -38,6 +38,7 @@ captures/
 
 # IntelliJ
 *.iml
+.idea
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/gradle.xml
@@ -85,3 +86,6 @@ lint/tmp/
 # lint/reports/
 
 .DS_Store
+
+# Keys needed for calling APIs
+app/src/main/res/raw/keys.yaml

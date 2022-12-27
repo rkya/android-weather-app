@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import lombok.ToString;
 
 @ToString
-class Wind {
-    double speed;
+public class Wind {
+    public double speed;
     @SerializedName("deg")
-    int degree;
-    double gust;
+    public int degree;
+    public double gust;
 }

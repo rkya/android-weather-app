@@ -3,9 +3,9 @@ package com.rkya.weather.model.openweathermap;
 import lombok.ToString;
 
 @ToString
-class Weather {
-    int id;
-    String main;
-    String description;
-    String icon;
+public class Weather {
+    public int id;
+    public String main;
+    public String description;
+    public String icon;
 }

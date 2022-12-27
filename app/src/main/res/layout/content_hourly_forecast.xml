@@ -1,35 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/hourly_card_view"
-    android:layout_gravity="center"
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:layout_below="@id/homeRecyclerView"
-    app:cardBackgroundColor="@android:color/transparent"
-    app:cardElevation="10dp"
-    card_view:cardCornerRadius="14dp">
-<!--    TODO: Transparent background not working-->
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:id="@+id/hourly_card_view"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:background="@color/teal_200" >
+    android:layout_marginStart="2dp"
+    android:layout_marginEnd="2dp"
+    android:layout_gravity="center">
+    <!--    TODO: Transparent background not working-->
 
-    <TextView
-        android:id="@+id/textViewHourlyForecast"
+    <ImageView
+        android:id="@+id/imageViewWeather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hourly Forecast"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@id/textViewTime"
+        tools:layout_editor_absoluteY="170dp"
+        tools:src="@drawable/ic_10d" />
 
-</androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/textViewTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Now"
+        tools:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/textViewTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewWeather"
+        tools:text="10\u00B0"
+        tools:textColor="@color/black" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

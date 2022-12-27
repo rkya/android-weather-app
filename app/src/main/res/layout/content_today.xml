@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/teal_700">
+    android:layout_height="match_parent">
 
     <!--    TODO: Check what app:layout_constraintHorizontal_bias="0.498" means-->
 
@@ -12,48 +11,78 @@
         android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
         android:text="Seattle"
+        android:textColor="@color/white"
+        android:shadowColor="@color/text_shadow"
+        android:textSize="@dimen/location_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpUsage"
+        tools:textColor="@color/black" />
 
     <TextView
         android:id="@+id/temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="6 degrees"
+        android:fontFamily="sans-serif-thin"
+        android:text="6\u00B0"
+        android:textColor="@color/white"
+        android:shadowColor="@color/text_shadow"
+        android:textSize="@dimen/temperature_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location" />
+        app:layout_constraintTop_toBottomOf="@+id/location"
+        tools:ignore="SpUsage"
+        tools:textColor="@color/black" />
 
     <TextView
         android:id="@+id/clouds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
         android:text="Cloudy"
+        android:textColor="@color/white"
+        android:shadowColor="@color/text_shadow"
+        android:textSize="@dimen/description_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/temperature" />
+        app:layout_constraintTop_toBottomOf="@+id/temperature"
+        tools:ignore="SpUsage"
+        tools:textColor="@color/black" />
 
     <TextView
         android:id="@+id/high"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="H: 6 degrees"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_alignParentEnd="true"
+        android:fontFamily="sans-serif"
+        android:text="H: 6\u00B0"
+        android:textColor="@color/white"
+        android:shadowColor="@color/text_shadow"
+        android:textSize="@dimen/description_text_size"
         app:layout_constraintEnd_toStartOf="@id/low"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clouds" />
+        app:layout_constraintTop_toBottomOf="@+id/clouds"
+        tools:ignore="SpUsage"
+        tools:textColor="@color/black" />
 
     <TextView
         android:id="@+id/low"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="L: 4 degrees"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_alignParentStart="true"
+        android:fontFamily="sans-serif"
+        android:text="L: 4\u00B0"
+        android:textColor="@color/white"
+        android:shadowColor="@color/text_shadow"
+        android:textSize="@dimen/description_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/high"
-        app:layout_constraintTop_toBottomOf="@+id/clouds" />
+        app:layout_constraintTop_toBottomOf="@+id/clouds"
+        tools:ignore="SpUsage"
+        tools:textColor="@color/black" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
